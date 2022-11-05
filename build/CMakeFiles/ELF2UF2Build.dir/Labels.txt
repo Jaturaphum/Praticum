@@ -1,0 +1,13 @@
+# Target labels
+ ELF2UF2Build
+# Source files and their labels
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/CMakeFiles/ELF2UF2Build
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/CMakeFiles/ELF2UF2Build.rule
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/CMakeFiles/ELF2UF2Build-complete.rule
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/elf2uf2/src/ELF2UF2Build-stamp/ELF2UF2Build-build.rule
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/elf2uf2/src/ELF2UF2Build-stamp/ELF2UF2Build-configure.rule
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/elf2uf2/src/ELF2UF2Build-stamp/ELF2UF2Build-download.rule
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/elf2uf2/src/ELF2UF2Build-stamp/ELF2UF2Build-install.rule
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/elf2uf2/src/ELF2UF2Build-stamp/ELF2UF2Build-mkdir.rule
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/elf2uf2/src/ELF2UF2Build-stamp/ELF2UF2Build-patch.rule
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/elf2uf2/src/ELF2UF2Build-stamp/ELF2UF2Build-update.rule

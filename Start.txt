@@ -1,0 +1,1 @@
+Start the command using " screen /dev/ttyACM0 115200 "

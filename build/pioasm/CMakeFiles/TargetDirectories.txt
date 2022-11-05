@@ -1,0 +1,3 @@
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/pioasm/CMakeFiles/pioasm.dir
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/pioasm/CMakeFiles/edit_cache.dir
+/home/jaturaphum/Downloads/0373/Praticum/PraticumII/build/pioasm/CMakeFiles/rebuild_cache.dir
