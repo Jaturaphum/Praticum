@@ -65,7 +65,7 @@ void gpio_callback_delay(uint gpio, uint32_t events) {
 }
 void sw_test() {
         if (logic == 1) {
-          gpio_set_irq_enabled_with_callback(SW_PIN, GPIO_IRQ_EDGE_RISE, true, &gpio_callback_release);
+        gpio_set_irq_enabled_with_callback(SW_PIN, GPIO_IRQ_EDGE_RISE, true, &gpio_callback_release);
         } else { 
         gpio_set_irq_enabled_with_callback(SW_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_callback_press);
         }
@@ -77,19 +77,19 @@ void test_hw(int old_time) {
     const float conversion_factor = 100.0f / (1 << 12);
     sw_test();
     light = get_light(conversion_factor);
-    if (time_us_64() - old_time >= 5* secound)
+    if (time_us_64() - old_time >= 10* secound)
     { break;
     } else {
-        if(time_us_64() - old_time_light > 1* secound) {
+        if(time_us_64() - old_time_light > 1 * secound) {
         old_time_light = time_us_64();
         printf("%f", light); 
-        } if(time_us_64() - old_time > 3* secound) {
+        } if(time_us_64() - old_time > 3 * secound) {
+        clear_all();
         led_green();
+        } else if (time_us_64() - old_time > 2 * secound) {
         clear_all();
-        } else if (time_us_64() - old_time > 2* secound) {
         led_yellow();
-        clear_all();
-        } else if (time_us_64() - old_time > 1* secound) {
+        } else if (time_us_64() - old_time > 1 * secound) {
         led_red();
         } else { clear_all();}
         }
@@ -128,7 +128,7 @@ int main() {
     set_io();
     test_hw(old_time);
     logic = 0;
-    sleep_ms(3000);
+    sleep_ms(5000);
     old_time = time_us_64();
     run(old_time);
     return 1;
