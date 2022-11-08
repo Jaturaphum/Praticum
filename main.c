@@ -9,7 +9,7 @@ const uint YELLOW_PIN = 13;
 const uint GREEN_PIN = 14;
 const uint SW_PIN = 15;
 uint light_color[]= {RED_PIN, YELLOW_PIN, GREEN_PIN};
-int logic = 1, secound = 1000000, delay = 1, sw_delay = 0;
+int logic = 1, secound = 100000, delay = 1, sw_delay = 0;
 
 void set_io() {
     stdio_init_all();
