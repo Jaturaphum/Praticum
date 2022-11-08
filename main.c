@@ -17,9 +17,9 @@ void set_io() {
     adc_gpio_init(28);
     adc_select_input(2);
     gpio_pull_up(SW_PIN); 
-    for(int i=0; i<3; i++){
-        gpio_init(light_color[i]);
-        gpio_set_dir(light_color[i], GPIO_OUT);
+for(int i=0; i<3; i++){
+    gpio_init(light_color[i]);
+    gpio_set_dir(light_color[i], GPIO_OUT);
     }
 }
 
@@ -34,7 +34,7 @@ void led_green() {
 }
 void clear_led() {
     for(int i=0;i<3;i++) {
-        gpio_put(light_color[i], 0);
+    gpio_put(light_color[i], 0);
     }
 }
 
@@ -60,7 +60,7 @@ void gpio_callback_press(uint gpio, uint32_t events) {
 
 void gpio_callback_release(uint gpio, uint32_t events) {
     gpio_acknowledge_irq(gpio, events);
-    printf("Release \n");
+    printf("Release\n");
     logic = 2;
 }
 
