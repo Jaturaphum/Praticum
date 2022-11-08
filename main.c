@@ -55,12 +55,12 @@ float get_light(float conversion_factor) {
 
 void gpio_callback_press(uint gpio, uint32_t events) {
     gpio_acknowledge_irq(gpio, events);
-    printf("Press");
+    printf("Press\n");
     logic = 1; }
 
 void gpio_callback_release(uint gpio, uint32_t events) {
     gpio_acknowledge_irq(gpio, events);
-    printf("Release");
+    printf("Release \n");
     logic = 2;
 }
 
@@ -86,18 +86,18 @@ void test_hw(int old_time) {
         const float conversion_factor = 100.0f / (1 << 12);
         sw_test();
         light = get_light(conversion_factor);
-        if (time_us_64() - old_time >= 5*second) {
+        if (time_us_64() - old_time >= 12 * second) {
         break;
         } else {
-        if(time_us_64() - old_time_light > 1*second) {
+        if(time_us_64() - old_time_light > 1 * second) {
         old_time_light = time_us_64();
         clear_led();
-        printf("%f", light);
-            } if(time_us_64() - old_time > 3*second && time_us_64() - old_time < 4*second) {
+        printf("%f\n", light);
+            } if(time_us_64() - old_time > 3 * second && time_us_64() - old_time < 4 * second) {
                 led_green();
-            } else if (time_us_64() - old_time > 2*second && time_us_64() - old_time < 3*second) {
+            } else if (time_us_64() - old_time > 2 * second && time_us_64() - old_time < 3 * second) {
                 led_yellow();
-            } else if (time_us_64() - old_time > 1*second && time_us_64() - old_time < 2*second) {
+            } else if (time_us_64() - old_time > 1 * second && time_us_64() - old_time < 2 * second) {
                 led_red();
             }
         }
@@ -120,10 +120,10 @@ void run(int old_time) {
         led_yellow();
         }
     gpio_set_irq_enabled_with_callback(SW_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_callback_delay);
-    if (time_us_64() - old_time > delay*second) {
+    if (time_us_64() - old_time > delay * second) {
         led_green();
         old_time = time_us_64();
-        printf("Value DLR : %d", delay);
+        printf("Value DLR : %d\n", delay);
     } 
     if (time_us_64() - old_time > (delay*second)/2) {
         clear_led_green();
