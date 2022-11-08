@@ -3,13 +3,13 @@
 #include "hardware/gpio.h"
 #include "hardware/adc.h"
 
+float light;
 const uint RED_PIN = 12;
 const uint YELLOW_PIN = 13;
 const uint GREEN_PIN = 14;
 const uint SW_PIN = 15;
 uint light_color[]= {RED_PIN, YELLOW_PIN, GREEN_PIN};
-int logic = 1, secound = 100000, delay = 1, sw_delay = 0;
-float light;
+int logic = 1, secound = 1000000, delay = 1, sw_delay = 0;
 
 void set_io() {
     stdio_init_all();
@@ -26,53 +26,43 @@ void set_io() {
 void led_red() {
     gpio_put(RED_PIN, 1);
 }
-
 void led_yellow() {
     gpio_put(YELLOW_PIN, 1);
 }
-
 void led_green() {
     gpio_put(GREEN_PIN, 1);
 }
-
 void clear_all() {
     for (int i=0; i<3; i++) {
         gpio_put (light_color[i], 0);
     }
 }
-
 void clear_led_light() {
     gpio_put(light_color[0], 0);
     gpio_put(light_color[1], 0);
 }
-
 void clear_led_green() {
     gpio_put(light_color[2], 0);
 }
-
 float get_light(float conversion_factor) {
     uint16_t result = adc_read();
     uint16_t light = result * conversion_factor;
     return light;
 }
-
 void gpio_callback_press(uint gpio, uint32_t events) {
     gpio_acknowledge_irq(gpio, events);
     printf("Press");
     logic = 1; }
-
 void gpio_callback_release(uint gpio, uint32_t events) {
     gpio_acknowledge_irq(gpio, events);
     printf("Release");
     logic = 2; }
-
 void gpio_callback_delay(uint gpio, uint32_t events) {
     gpio_acknowledge_irq(gpio, events);
     sw_delay = 1;
     if (delay > 2) { delay = 1; }
     else { delay += 1; } 
 }
-
 void sw_test() {
         if (logic == 1) {
           gpio_set_irq_enabled_with_callback(SW_PIN, GPIO_IRQ_EDGE_RISE, true, &gpio_callback_release);
@@ -126,7 +116,7 @@ void run(int old_time) {
         if (time_us_64() - old_time > delay * secound) {
             led_green();
             old_time = time_us_64();
-            printf("Hello Belle: %d", delay);
+            printf("LDR value: %d", delay);
         } if (time_us_64() - old_time > delay* secound/2) {
         clear_led_green();
         }
