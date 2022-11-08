@@ -18,8 +18,8 @@ void set_io() {
     adc_select_input(2);
     gpio_pull_up(SW_PIN); 
     for(int i=0; i<3; i++){
-        gpio_init(light_colori]);
-        gpio_set_dir(light_colori], GPIO_OUT);
+        gpio_init(light_color[i]);
+        gpio_set_dir(light_color[i], GPIO_OUT);
     }
 }
 
