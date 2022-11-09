@@ -17,9 +17,9 @@ void set_io() {
     adc_gpio_init(28);
     adc_select_input(2);
     gpio_pull_up(SW_PIN); 
-for(int i=0; i<3; i++){
-    gpio_init(light_color[i]);
-    gpio_set_dir(light_color[i], GPIO_OUT);
+    for(int i=0; i<3; i++){
+        gpio_init(light_color[i]);
+        gpio_set_dir(light_color[i], GPIO_OUT);
     }
 }
 
@@ -34,7 +34,7 @@ void led_green() {
 }
 void clear_led() {
     for(int i=0;i<3;i++) {
-    gpio_put(light_color[i], 0);
+        gpio_put(light_color[i], 0);
     }
 }
 
@@ -55,22 +55,23 @@ float get_light(float conversion_factor) {
 
 void gpio_callback_press(uint gpio, uint32_t events) {
     gpio_acknowledge_irq(gpio, events);
-    printf("Press\n");
+    printf("Press \n");
     logic = 1; }
 
 void gpio_callback_release(uint gpio, uint32_t events) {
     gpio_acknowledge_irq(gpio, events);
-    printf("Release\n");
+    printf("Release \n");
     logic = 2;
 }
 
 void gpio_callback_delay(uint gpio, uint32_t events) {
     gpio_acknowledge_irq(gpio, events);
     sw_delay = 1;
-    if (delay > 2) {
-        delay = 1; 
-    }else {
-        delay += 1;
+    if (delay > 2)
+    {
+    delay = 1; 
+    } else {
+    delay += 1;
     } 
 }
 
@@ -86,7 +87,7 @@ void test_hw(int old_time) {
         const float conversion_factor = 100.0f / (1 << 12);
         sw_test();
         light = get_light(conversion_factor);
-        if (time_us_64() - old_time >= 12 * second) {
+        if (time_us_64() - old_time >= 10 * second) {
         break;
         } else {
         if(time_us_64() - old_time_light > 1 * second) {
@@ -123,9 +124,9 @@ void run(int old_time) {
     if (time_us_64() - old_time > delay * second) {
         led_green();
         old_time = time_us_64();
-        printf("Value DLR : %d\n", delay);
+        printf("Value : %d\n", delay);
     } 
-    if (time_us_64() - old_time > (delay*second)/2) {
+    if (time_us_64() - old_time > (delay * second)/2) {
         clear_led_green();
         }
     }
