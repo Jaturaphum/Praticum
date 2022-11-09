@@ -8,7 +8,7 @@ const uint YELLOW_PIN = 13;
 const uint GREEN_PIN = 14;
 const uint SW_PIN = 15;
 uint light_color[]= {RED_PIN, YELLOW_PIN, GREEN_PIN};
-int logic = 0, second = 1000000, delay = 1, sw_delay = 0;
+int logic = 0, second = 100000, delay = 3, sw_delay = 0;
 float light;
 
 void set_io() {
@@ -54,13 +54,9 @@ float get_light(float conversion_factor) {
 }
 
 void gpio_callback_press(uint gpio, uint32_t events) {
-    gpio_acknowledge_irq(gpio, events);
-    printf("Press \n");
     logic = 1; }
 
 void gpio_callback_release(uint gpio, uint32_t events) {
-    gpio_acknowledge_irq(gpio, events);
-    printf("Release \n");
     logic = 2;
 }
 
@@ -80,34 +76,11 @@ void sw_test() {
         } else { gpio_set_irq_enabled_with_callback(SW_PIN, GPIO_IRQ_EDGE_FALL, true, &gpio_callback_press);}
 }
 
-void test_hw(int old_time) {
-    int old_time_light = old_time;
-    while (true)
-    {
-        const float conversion_factor = 100.0f / (1 << 12);
-        sw_test();
-        light = get_light(conversion_factor);
-        if (time_us_64() - old_time >= 10 * second) {
-        break;
-        } else {
-        if(time_us_64() - old_time_light > 1 * second) {
-        old_time_light = time_us_64();
-        clear_led();
-        printf("%f\n", light);
-            } if(time_us_64() - old_time > 3 * second && time_us_64() - old_time < 4 * second) {
-                led_green();
-            } else if (time_us_64() - old_time > 2 * second && time_us_64() - old_time < 3 * second) {
-                led_yellow();
-            } else if (time_us_64() - old_time > 1 * second && time_us_64() - old_time < 2 * second) {
-                led_red();
-            }
-        }
-    }
-}
-
 void run(int old_time) {
     while (true) 
     { const float conversion_factor = 100.0f / (1 << 12);
+    uint16_t result = adc_read();
+    float val = result * conversion_factor;
     light = get_light(conversion_factor);
         if(light < 30) {
         clear_led_light();
@@ -124,7 +97,7 @@ void run(int old_time) {
     if (time_us_64() - old_time > delay * second) {
         led_green();
         old_time = time_us_64();
-        printf("Value : %d\n", delay);
+        printf("light percent: %f\n", result,val,delay);
     } 
     if (time_us_64() - old_time > (delay * second)/2) {
         clear_led_green();
@@ -135,7 +108,6 @@ void run(int old_time) {
 int main() {
     int old_time = time_us_64();
     set_io();
-    test_hw(old_time);
     logic = 0;
     sleep_ms(3000);
     old_time = time_us_64();
